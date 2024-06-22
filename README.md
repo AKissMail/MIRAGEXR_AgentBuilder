@@ -1,4 +1,4 @@
-# mirag_xr_agent_builder
+# mirage_xr_agent_builder
 
 ## Project setup
 ```

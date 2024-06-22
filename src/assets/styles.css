@@ -1,0 +1,75 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #040b3b;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #360a6f;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    background-color: #060d3a;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #171118;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #040b3b;
+    color: #ffffff;
+    padding: 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav button {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+@media (max-width: 800px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav button {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .dashboard {
+        padding: 10px;
+    }
+
+    .dashboard button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
