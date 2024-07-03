@@ -4,7 +4,10 @@
     <form @submit.prevent="submitForm">
       <div>
         <label for="config-name">Configuration Name</label>
-        <input type="text" id="config-name" v-model="selectedConfig" required>
+        <select id="model-select" v-model="selectedConfig" required>
+          <option disabled value="">Please select a Model</option>
+          <option v-for="config in configurations" :key="config.apiName" :value="config.apiName">{{ config.name }}</option>
+        </select>
       </div>
       <div class="radio-buttons">
         <input type="radio" id="file-upload" value="file" v-model="uploadType" required>
@@ -24,21 +27,23 @@
         <label for="document-name">Document Name</label>
         <input type="text" id="document-name" v-model="documentName" required>
       </div>
-      <div>
-        <label for="database">Database</label>
-        <input type="text" id="database" v-model="database" required>
-      </div>
       <button type="submit">Submit</button>
     </form>
     <div v-if="responseMessage" class="response">
       <h2>Response from API:</h2>
       <p>{{ responseMessage }}</p>
     </div>
+    <template>
+      <button v-tooltip="'I am a tooltip'">
+        Hover over me
+      </button>
+    </template>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+
 
 export default {
   data() {
@@ -52,15 +57,29 @@ export default {
       responseMessage: ''
     };
   },
+  created() {
+    this.loadConfigurations();
+  },
   methods: {
+
+    loadConfigurations() {
+      const configs = localStorage.getItem('thinkModels');
+      if (configs) {
+        this.configurations = JSON.parse(configs);
+      } else {
+        console.error('No configurations found. Please log in again.');
+      }
+      this.configurations.splice(0,3)
+      console.log(this.configurations);
+    },
     handleFileUpload(event) {
       this.file = event.target.files[0];
-    },
+      },
+
     async submitForm() {
       const formData = new FormData();
       formData.append('config_name', this.selectedConfig);
       formData.append('name', this.documentName);
-      formData.append('database', this.database);
 
       if (this.uploadType === 'file' && this.file) {
         formData.append('document', this.file);
@@ -88,6 +107,9 @@ export default {
 </script>
 
 <style scoped>
+h1, label{
+  font-family: 'Roboto', sans-serif
+}
 .upload {
   max-width: 600px;
   margin: 0 auto;
@@ -124,7 +146,7 @@ export default {
   margin-top: 1em;
   padding: 0.5em 1em;
   font-size: 1em;
-  background-color: #41e4fe;
+  background-color: rgba(4, 11, 59, 0.73);
   color: #ffffff;
   border: none;
   cursor: pointer;

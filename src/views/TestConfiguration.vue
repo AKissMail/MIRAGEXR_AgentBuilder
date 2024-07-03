@@ -11,11 +11,11 @@
       </div>
       <div>
         <label for="teacher-prompt">Teacher Prompt</label>
-        <input type="text" id="teacher-prompt" v-model="teacherPrompt" required>
+        <input placeholder="Provide specific information about the task."  type="text" id="teacher-prompt" v-model="teacherPrompt" required>
       </div>
       <div>
         <label for="student-message">Student Message</label>
-        <input type="text" id="student-message" v-model="studentMessage" required>
+        <input placeholder="Test the model with a question!" type="text" id="student-message" v-model="studentMessage" required>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -28,7 +28,7 @@
 
 <script>
 import axios from 'axios';
-
+import { loadConfigurations } from './authentication';
 export default {
   data() {
     return {
@@ -39,16 +39,24 @@ export default {
       responseMessage: ''
     };
   },
-  created() {
-    this.loadConfigurations();
+  async mounted() {
+    await this
+    this.localLoadConfigurations();
   },
   methods: {
-    loadConfigurations() {
-      const configs = localStorage.getItem('configurations');
-      if (configs) {
-        this.configurations = JSON.parse(configs);
+
+    async localLoadConfigurations() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        await loadConfigurations(token)
+        const configs = localStorage.getItem('thinkModels');
+        if (configs) {
+          this.configurations = JSON.parse(configs);
+        } else {
+          console.error('No configurations found. Please log in again.');
+        }
       } else {
-        console.error('No configurations found. Please log in again.');
+        console.error('No token found. Please log in again.');
       }
     },
     async submitForm() {
@@ -76,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+
+h1, label{
+  font-family: 'Roboto', sans-serif
+}
 .test-configuration {
   max-width: 600px;
   margin: 0 auto;
@@ -110,14 +122,14 @@ export default {
   margin-top: 1em;
   padding: 0.5em 1em;
   font-size: 1em;
-  background-color: #41e4fe;
+  background-color: rgba(4, 11, 59, 0.73);
   color: #ffffff;
   border: none;
   cursor: pointer;
 }
 
 .test-configuration button:hover {
-  background-color: #11aec7;
+  background-color: rgba(4, 11, 59, 0.73);
 }
 
 .response {

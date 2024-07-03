@@ -4,19 +4,19 @@
     <form @submit.prevent="submitForm">
       <div>
         <label for="prompt-start">Prompt Start</label>
-        <textarea id="prompt-start" v-model="config.prompt_start" required></textarea>
+        <textarea placeholder="Add additional information to the question of the Student" id="prompt-start" v-model="config.prompt_start" required></textarea>
       </div>
       <div>
         <label for="prompt-end">Prompt End</label>
-        <textarea id="prompt-end" v-model="config.prompt_end" required></textarea>
+        <textarea placeholder="Add additional information to the question of the Student" id="prompt-end" v-model="config.prompt_end" required></textarea>
       </div>
       <div>
         <label for="context-start">Context Start</label>
-        <textarea id="context-start" v-model="config.context_start" required></textarea>
+        <textarea placeholder="Add additional information to the task of the teacher, add here a description of the roll." id="context-start" v-model="config.context_start" required></textarea>
       </div>
       <div>
         <label for="context-end">Context End</label>
-        <textarea id="context-end" v-model="config.context_end" required></textarea>
+        <textarea placeholder="Add additional information to the task of the teacher, add here requirements for the answer." id="context-end" v-model="config.context_end" required></textarea>
       </div>
       <div>
         <label for="provider-model">Provider and Model</label>
@@ -34,8 +34,13 @@
       </div>
       <div>
         <label for="api-name">API Name</label>
-        <input type="text" id="api-name" v-model="config.apiName" required>
+        <input placeholder="Select a name for your model" type="text" id="api-name" v-model="config.apiName" required>
       </div>
+      <div>
+        <label for="Description of you Model">API Name</label>
+        <input placeholder="Add a short description of the model" type="text" id="description" v-model="config.description" required>
+      </div>
+
       <button type="submit">Submit</button>
     </form>
     <div v-if="responseMessage" class="response">
@@ -101,7 +106,10 @@ export default {
         update_database: false,
         new_database: true,
         delete_database: false,
-        database_name: this.config.apiName
+        database_name: this.config.apiName,
+        name:this.config.apiName,
+        description:this.config.description
+
       };
 
       try {
@@ -122,6 +130,10 @@ export default {
 </script>
 
 <style scoped>
+h1, label{
+  font-family: 'Roboto', sans-serif
+}
+
 .create-configuration {
   max-width: 600px;
   margin: 0 auto;
@@ -157,7 +169,7 @@ export default {
   margin-top: 1em;
   padding: 0.5em 1em;
   font-size: 1em;
-  background-color: #41e4fe;
+  background-color: rgba(4, 11, 59, 0.73);
   color: #ffffff;
   border: none;
   cursor: pointer;

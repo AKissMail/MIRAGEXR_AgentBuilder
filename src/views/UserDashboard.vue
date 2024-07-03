@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style scoped>
+h1, label{
+  font-family: 'Roboto', sans-serif
+}
 .dashboard {
   max-width: 600px;
   margin: 0 auto;

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { login, loadConfigurations } from './authentication';
 
 export default {
   data() {
@@ -28,40 +28,24 @@ export default {
     };
   },
   methods: {
-    async login() {
-      try {
-        const response = await axios.post('http://localhost:8000/authentication/', {
-          username: this.username,
-          password: this.password
-        });
 
-        const token = response.data.token;
-        localStorage.setItem('token', token);
-        await this.loadConfigurations(token);
+    async login() {
+      const token = await login(this.username, this.password);
+      if (token) {
         this.$router.push('/dashboard');
-      } catch (error) {
+        await loadConfigurations(token);
+      } else {
         this.error = 'Login failed. Please check your username and password.';
       }
     },
-    async loadConfigurations(token) {
-      try {
-        const response = await axios.get('http://localhost:8000/options/', {
-          headers: {
-            'Authorization': `Token ${token}`
-          }
-        });
-
-        const ragConfig = response.data.find(config => config.ragConfig).ragConfig;
-        localStorage.setItem('ragConfig', JSON.stringify(ragConfig));
-      } catch (error) {
-        console.error('Error loading configurations:', error);
-      }
-    }
   }
 };
 </script>
 
 <style scoped>
+h1, label{
+  font-family: 'Roboto', sans-serif
+}
 .login {
   max-width: 400px;
   margin: 0 auto;
@@ -100,14 +84,14 @@ export default {
 .login button {
   padding: 0.5em 1em;
   font-size: 1em;
-  background-color: #41e4fe;
+  background-color: rgba(4, 11, 59, 0.73);
   color: #ffffff;
   border: none;
   cursor: pointer;
 }
 
 .login button:hover {
-  background-color: #11aec7;
+  background-color: #0f1f8f;
 }
 
 .error {

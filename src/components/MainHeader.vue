@@ -88,7 +88,7 @@ nav button {
 }
 
 nav button:hover {
-  background-color: #40dbf4;
+  background-color: #0f1f8f;
 }
 
 .burger-menu {
