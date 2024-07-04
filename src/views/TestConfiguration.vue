@@ -11,11 +11,11 @@
       </div>
       <div>
         <label for="teacher-prompt">Teacher Prompt</label>
-        <input placeholder="Provide specific information about the task."  type="text" id="teacher-prompt" v-model="teacherPrompt" required>
+        <input placeholder="Provide specific information about the task, that you give to the Students."  type="text" id="teacher-prompt" v-model="teacherPrompt" required>
       </div>
       <div>
         <label for="student-message">Student Message</label>
-        <input placeholder="Test the model with a question!" type="text" id="student-message" v-model="studentMessage" required>
+        <input placeholder="Test the model with a question that a Student could ask!" type="text" id="student-message" v-model="studentMessage" required>
       </div>
       <button type="submit">Submit</button>
     </form>

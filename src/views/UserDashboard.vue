@@ -1,14 +1,14 @@
 <template>
   <div class="dashboard">
     <div v-if="!isSubRouteActive">
-      <router-link to="/dashboard/test-configuration">
-        <button>Test Configuration</button>
-      </router-link>
       <router-link to="/dashboard/create-configuration">
         <button>Create Configuration</button>
       </router-link>
       <router-link to="/dashboard/upload">
         <button>Upload Document</button>
+      </router-link>
+      <router-link to="/dashboard/test-configuration">
+        <button>Test Configuration</button>
       </router-link>
     </div>
     <router-view></router-view>

@@ -1,6 +1,6 @@
 <template>
   <div class="create-configuration">
-    <h1>Create Configuration</h1>
+    <h1>Create Configuration for a Virtual Instructor</h1>
     <form @submit.prevent="submitForm">
       <div>
         <label for="prompt-start">Prompt Start</label>
@@ -21,27 +21,29 @@
       <div>
         <label for="provider-model">Provider and Model</label>
         <select id="provider-model" v-model="selectedModel" @change="updateModel" required>
-          <option disabled value="">Please select one</option>
+          <option disabled value="">Select a LLM Model for your Virtual Instructor</option>
           <option v-for="model in models" :key="model.model" :value="model">{{ model.provider }} - {{ model.model }}</option>
         </select>
       </div>
       <div>
         <label for="rag-function">RAG Function</label>
         <select id="rag-function" v-model="selectedRagFunction" @change="updateRagFunction" required>
-          <option disabled value="">Please select one</option>
+          <option disabled value="">Select a RAG Model for your Virtual Instructor</option>
           <option v-for="rag in ragFunctions" :key="rag.rag_function" :value="rag">{{ rag.rag_function }} - {{ rag.rag_function_call }}</option>
         </select>
       </div>
       <div>
-        <label for="api-name">API Name</label>
+        <label for="api-name">Give your Virtual Instructor a Name</label>
         <input placeholder="Select a name for your model" type="text" id="api-name" v-model="config.apiName" required>
       </div>
       <div>
-        <label for="Description of you Model">API Name</label>
+        <label for="Description of you Model">Add a Description Virtual Instructor</label>
         <input placeholder="Add a short description of the model" type="text" id="description" v-model="config.description" required>
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit"
+              :disabled="inputTooShort"
+      >Submit</button>
     </form>
     <div v-if="responseMessage" class="response">
       <h2>Response from API:</h2>
@@ -74,6 +76,11 @@ export default {
       responseMessage: ''
     };
   },
+  computed: {
+    inputTooShort() {
+      return this.config.apiName.length < 3;
+        }
+      },
   created() {
     this.loadConfigurations();
   },

@@ -33,11 +33,6 @@
       <h2>Response from API:</h2>
       <p>{{ responseMessage }}</p>
     </div>
-    <template>
-      <button v-tooltip="'I am a tooltip'">
-        Hover over me
-      </button>
-    </template>
   </div>
 </template>
 
