@@ -121,7 +121,7 @@ export default {
 
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://localhost:8000/document/configuration', formData, {
+        const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/document/configuration`,  formData, {
           headers: {
             'Authorization': `Token ${token}`
           }

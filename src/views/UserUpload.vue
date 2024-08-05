@@ -38,6 +38,7 @@
 
 <script>
 import axios from 'axios';
+import { loadConfigurations } from './authentication';
 
 
 export default {
@@ -53,6 +54,7 @@ export default {
     };
   },
   created() {
+    loadConfigurations( localStorage.getItem('token'))
     this.loadConfigurations();
   },
   methods: {
@@ -75,7 +77,7 @@ export default {
       const formData = new FormData();
       formData.append('config_name', this.selectedConfig);
       formData.append('name', this.documentName);
-
+      formData.append('database', 'chromadb');
       if (this.uploadType === 'file' && this.file) {
         formData.append('document', this.file);
       } else if (this.uploadType === 'text' && this.textInput) {

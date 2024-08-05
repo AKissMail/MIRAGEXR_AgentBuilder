@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function login(username, password) {
     try {
-        const response = await axios.post('http://localhost:8000/authentication/', {
+        const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/authentication/`, {
             username: username,
             password: password
         });
@@ -20,7 +20,7 @@ export async function login(username, password) {
 
 export async function loadConfigurations(token) {
     try {
-        const response = await axios.get('http://localhost:8000/options/', {
+        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/options/`, {
             headers: {
                 'Authorization': `Token ${token}`
             }
